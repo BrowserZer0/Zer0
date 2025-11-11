@@ -1,0 +1,210 @@
+{
+  "name": "zerobrowser",
+  "description": "Zero - Privacy-focused web browser",
+  "version": "1.0.0",
+  "author": {
+    "name": "ZeroBrowserAuthors",
+    "email": "contact@zer0.build",
+    "url": "https://zer0.build/"
+  },
+  "homepage": "./",
+  "main": "public/electron.js",
+  "productName": "Zero Browser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerobrowser/zero.git"
+  },
+  "build": {
+    "appId": "com.zero.zerobrowser",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "publish": [
+      "github"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "artifactName": "ZeroBrowser.Setup.${version}.${ext}",
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/css-declaration-sorter/**/*"
+    ],
+    "linux": {
+      "icon": "public/icon.png",
+      "category": "Network",
+      "synopsis": "Zero - Privacy-focused web browser",
+      "target": [
+        "deb",
+        "appImage"
+      ],
+      "extraFiles": [
+        {
+          "from": "resources/lin/tor",
+          "to": "resources/lin/tor",
+          "filter": [
+            "**/*"
+          ]
+        },
+        {
+          "from": "/usr/lib/x86_64-linux-gnu/libevent-2.1.so.7",
+          "to": "usr/lib/libevent-2.1.so.7"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "public/icon.png",
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "extraFiles": [
+        {
+          "from": "resources/mac/tor",
+          "to": "resources/mac/tor",
+          "filter": [
+            "**/*"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "icon": "public/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "verifyUpdateCodeSignature": false,
+      "extraFiles": [
+        {
+          "from": "resources/win/Tor",
+          "to": "resources/win/Tor",
+          "filter": [
+            "**/*"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Zero Browser",
+      "installerIcon": "public/icon.ico",
+      "uninstallerIcon": "public/icon.ico",
+      "license": "LICENSE",
+      "warningsAsErrors": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "runAfterFinish": true,
+      "menuCategory": true
+    },
+    "portable": {
+      "artifactName": "ZeroBrowser.Portable.${version}.${ext}"
+    },
+    "nsisWeb": {
+      "artifactName": "ZeroBrowser.WebSetup.${version}.${ext}"
+    },
+    "deb": {
+      "artifactName": "ZeroBrowser.Setup.${version}.${ext}",
+      "icon": "public/icon.png",
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3",
+        "libevent-dev"
+      ],
+      "synopsis": "Zero - Privacy-focused web browser",
+      "description": "Zero Browser is a privacy-focused web browser with built-in Tor support and rewards system.",
+      "maintainer": "Zero Browser <contact@zer0.build>",
+      "priority": "optional"
+    },
+    "appImage": {
+      "artifactName": "ZeroBrowser.Setup.${version}.AppImage",
+      "license": "LICENSE"
+    },
+    "dmg": {
+      "icon": "public/icon.png",
+      "title": "Zero Browser ${version}",
+      "backgroundColor": "#000000",
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "contents": [
+        {
+          "x": 144,
+          "y": 150,
+          "type": "file"
+        },
+        {
+          "x": 396,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@cliqz/adblocker-electron": "^1.34.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.8",
+    "bs58": "^6.0.0",
+    "cross-fetch": "^4.1.0",
+    "electron-context-menu": "^3.6.1",
+    "electron-is-dev": "^2.0.0",
+    "electron-log": "^5.4.3",
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.6.2",
+    "font-awesome": "^4.7.0",
+    "get-json": "^1.1.0",
+    "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.0",
+    "react-scripts": "5.0.1",
+    "semver": "^7.7.3",
+    "tweetnacl": "^1.0.3",
+    "unused-filename": "2.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^28.3.3",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2",
+    "wait-on": "^9.0.1"
+  },
+  "scripts": {
+    "electron-dev": "cross-env BROWSER=none concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "react-start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build-win": "cross-env CI= react-scripts build && electron-builder --win --publish never",
+    "build-linux": "cross-env CI= react-scripts build && electron-builder --linux --publish never",
+    "build-mac": "cross-env CI= react-scripts build && electron-builder --mac --publish never"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

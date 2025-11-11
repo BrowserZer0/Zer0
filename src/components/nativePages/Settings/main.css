@@ -1,0 +1,299 @@
+.settings-container {
+  background-color: var(--background-color-secondary);
+  color: var(--font-color-primary);
+  font-family: Roboto !important;
+  user-select: none;
+}
+
+.settings-container input[type='checkbox'] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.settings-container label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 60px;
+  height: 34px;
+  background: grey;
+  display: block;
+  border-radius: 30px;
+  position: relative;
+}
+
+.settings-container label:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.settings-container input:checked + label {
+  background: #d1f8d1;
+}
+
+.settings-container input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.settings-container label:active:after {
+  width: 34px;
+}
+
+.settings-container .item {
+  background-color: var(--background-color-primary);
+}
+
+.settings-container .item:hover {
+  background-color: var(--background-color-primary);
+}
+
+.settings-container .item:hover {
+  background-color: var(--background-color-primary);
+}
+
+.settings-sidebar-item {
+  color: var(--font-color-secondary);
+  cursor: pointer;
+}
+
+.settings-sidebar-item i {
+  width: 50px;
+}
+
+.settings-active {
+  font-weight: bold;
+}
+
+.settings-version-info {
+  margin-top: 620px;
+}
+
+.settings-search-engine-list-ctr {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.settings-search-engine-list {
+  display: flex;
+  color: var(--font-color-secondary);
+  gap: 15px;
+}
+
+.settings-search-engine-list img {
+  width: 45px;
+  height: 45px;
+  padding: 2px;
+  border-radius: 50%;
+  border: 2.5px solid #3b3b3b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-search-engine-list .active {
+  border-color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(240, 240, 240, 0.3);
+}
+
+.settings-search-engine-list img:hover {
+  background-color: rgba(240, 240, 240, 0.1);
+  border-color: #888;
+  transform: scale(1.05);
+}
+
+.settings-tor-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.settings-tor-icon-inactive {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+/* Info text styling */
+.text-muted,
+.small {
+  margin-top: 8px;
+  display: block;
+  line-height: 1.5;
+}
+
+/* Section spacing */
+.settings-container h5 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-top: 25px;
+}
+
+.preference-button {
+  color: var(--font-color-primary);
+  background-color: transparent;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  min-width: 150px;
+  padding: 8px 20px;
+  height: 40px; /* Increased height for better click target */
+  border: 1px solid #575757; /* Stronger border */
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px; /* Add space between adjacent buttons */
+}
+
+.preference-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #888;
+  transform: translateY(-1px);
+}
+
+.preference-button:active {
+  transform: translateY(0);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.preference-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.preference-button-active {
+  border: 2px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: 400;
+}
+
+#logo {
+  position: fixed;
+  height: 65px;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add space between logo and text */
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.2s ease;
+}
+
+#logo:hover {
+  opacity: 0.8;
+}
+
+#logo img {
+  width: 80px; /* Increased logo size */
+  height: 60px;
+  object-fit: contain;
+}
+
+#logo p {
+  font-size: 17px;
+  margin: 0; /* Remove default margin */
+  white-space: nowrap;
+}
+
+.sidebar {
+  -ms-flex: 0 0 190px;
+  flex: 0 0 190px;
+}
+
+.sidebar-right {
+  -ms-flex: 0 0 0px;
+  flex: 0 0 0px;
+}
+
+.right-container {
+  height: 90vh;
+  overflow: scroll;
+  padding: 20px 30px; /* Add padding for better content spacing */
+}
+
+/* Add spacing between settings sections */
+.right-container > div {
+  margin-bottom: 30px;
+}
+
+/* Settings section headers */
+.right-container h5,
+.right-container h4 {
+  margin-bottom: 15px;
+  margin-top: 20px;
+  color: var(--font-color-primary);
+}
+
+/* Add spacing for button groups */
+.right-container button + button {
+  margin-left: 10px;
+}
+
+.download-location {
+  min-width: 350px;
+  width: 38vw;
+  text-align: left;
+}
+.custom-search {
+  width: 325px;
+  text-align: left;
+  outline: none;
+}
+.custom-search-error {
+  border-color: rgb(206, 84, 84);
+}
+hr {
+  border-color: #f3f3f3;
+  margin: '0px';
+}
+
+/* Add hover effects for all clickable elements */
+.settings-container img[onClick],
+.settings-container img {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-container img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.settings-container img:active {
+  transform: scale(1.05);
+}
+
+.settings-container button {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.settings-container label {
+  transition: all 0.2s ease;
+}
+
+.settings-container label:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 690px) {
+  .sidebar-right {
+    display: none;
+  }
+}

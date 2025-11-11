@@ -1,0 +1,30 @@
+.width {
+  min-width: 300px;
+  max-width: 600px;
+  height: 100%;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
+}
+.download-container {
+  background-color: var(--background-color-secondary);
+}
+
+.downloadBox {
+  margin: 15px 70px 5px 70px;
+}
+
+.download-item {
+  background-color: var(--background-color-primary);
+  color: var(--font-color-primary);
+}
+.file-icon {
+  font-size: 30px;
+  color: #c4c4c4;
+}

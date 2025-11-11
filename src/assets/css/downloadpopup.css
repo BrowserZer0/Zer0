@@ -1,0 +1,28 @@
+.alldownloads {
+  text-align: center;
+  color: var(--font-color-secondary);
+  margin-top: 10px;
+}
+.dropdown-downloads {
+  border-radius: 2px;
+  position: fixed;
+  background: #000000;
+  right: 0;
+  z-index: 10000;
+}
+.downloadname {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 14px;
+  color: var(--font-color-secondary);
+}
+.progressinfo {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--font-color-secondary);
+}
