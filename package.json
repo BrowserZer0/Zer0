@@ -31,6 +31,7 @@
     "asarUnpack": [
       "**/node_modules/css-declaration-sorter/**/*"
     ],
+    "afterPack": "./scripts/afterPack.js",
     "linux": {
       "icon": "public/icon.png",
       "category": "Network",
@@ -190,7 +191,10 @@
     "react-start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build-win": "cross-env CI= react-scripts build && electron-builder --win --publish never",
     "build-linux": "cross-env CI= react-scripts build && electron-builder --linux --publish never",
-    "build-mac": "cross-env CI= react-scripts build && electron-builder --mac --publish never"
+    "build-mac": "cross-env CI= react-scripts build && electron-builder --mac --publish never",
+    "build-mac-x64": "cross-env CI= react-scripts build && electron-builder --mac --x64 --publish never",
+    "build-mac-arm64": "cross-env CI= react-scripts build && electron-builder --mac --arm64 --publish never",
+    "build-mac-universal": "cross-env CI= react-scripts build && electron-builder --mac --universal --publish never"
   },
   "eslintConfig": {
     "extends": "react-app"

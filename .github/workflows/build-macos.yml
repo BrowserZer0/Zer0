@@ -1,0 +1,105 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_to_release:
+        description: 'Upload to existing v1.0.0 release'
+        required: false
+        default: 'false'
+        type: boolean
+      build_type:
+        description: 'Build type (universal, x64, arm64)'
+        required: false
+        default: 'universal'
+        type: choice
+        options:
+          - universal
+          - x64
+          - arm64
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Download Tor Expert Bundle for macOS
+      run: |
+        mkdir -p resources/mac/tor
+        cd resources/mac
+        
+        # Download macOS Tor expert bundle
+        curl -LO https://archive.torproject.org/tor-package-archive/torbrowser/15.0/tor-expert-bundle-macos-x86_64-15.0.tar.gz || \
+        curl -LO https://dist.torproject.org/torbrowser/15.0/tor-expert-bundle-macos-x86_64-15.0.tar.gz
+        
+        # Extract to tor directory
+        tar -xzf tor-expert-bundle-macos-x86_64-15.0.tar.gz -C tor --strip-components=1 || tar -xzf tor-expert-bundle-macos-x86_64-15.0.tar.gz
+        
+        # Show structure
+        echo "Tor bundle structure:"
+        ls -la tor/
+        if [ -d "tor/tor" ]; then
+          ls -la tor/tor/
+        fi
+        
+        # Set executable permissions
+        chmod +x tor/tor/tor 2>/dev/null || true
+        chmod +x tor/tor/libevent-2.1.7.dylib 2>/dev/null || true
+        if [ -d "tor/tor/pluggable_transports" ]; then
+          chmod +x tor/tor/pluggable_transports/* 2>/dev/null || true
+        fi
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build macOS app (Universal)
+      if: ${{ inputs.build_type == 'universal' }}
+      run: npm run build-mac-universal
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: false
+        
+    - name: Build macOS app (x64)
+      if: ${{ inputs.build_type == 'x64' }}
+      run: npm run build-mac-x64
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: false
+        
+    - name: Build macOS app (arm64)
+      if: ${{ inputs.build_type == 'arm64' }}
+      run: npm run build-mac-arm64
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: false
+        
+    - name: List build artifacts
+      run: ls -la dist/
+        
+    - name: Upload macOS build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: zero-browser-macos-${{ inputs.build_type }}
+        path: |
+          dist/*.dmg
+          dist/*.zip
+        retention-days: 30
+
+    - name: Upload to Release
+      if: ${{ inputs.upload_to_release }}
+      run: |
+        gh release upload v1.0.0 dist/*.dmg --clobber
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
