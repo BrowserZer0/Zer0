@@ -69,7 +69,8 @@
             "**/*"
           ]
         }
-      ]
+      ],
+      "x64ArchFiles": "Contents/Resources/mac/tor/**/*"
     },
     "win": {
       "icon": "public/icon.ico",
