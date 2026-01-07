@@ -40,15 +40,11 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Build React app
-      run: npm run build
-      env:
-        CI: false
-        
     - name: Build Linux packages
-      run: npx electron-builder --linux --publish never
+      run: npm run build-linux
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: false
         
     - name: List build artifacts
       run: ls -la dist/
