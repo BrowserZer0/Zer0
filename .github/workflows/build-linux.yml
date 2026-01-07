@@ -59,12 +59,8 @@ jobs:
         retention-days: 30
 
     - name: Upload to Release
-      if: ${{ inputs.upload_to_release == 'true' }}
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v1.0.0
-        files: |
-          dist/*.deb
-          dist/*.AppImage
+      if: ${{ inputs.upload_to_release }}
+      run: |
+        gh release upload v1.0.0 dist/*.deb dist/*.AppImage --clobber
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
